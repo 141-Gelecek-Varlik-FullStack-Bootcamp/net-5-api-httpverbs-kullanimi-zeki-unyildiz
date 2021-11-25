@@ -66,6 +66,26 @@ namespace WebApi.Controllers
             return Ok();
         }
 
+        [HttpPut]
+        public IActionResult Put(int id, [FromBody] Player player)
+        {
+            var updatedPlayer = _players.FirstOrDefault(u => u.PlayerID == id);
+            if (updatedPlayer == null) { return BadRequest(); }
+            updatedPlayer.FirstName = player.FirstName;
+            updatedPlayer.LastName = player.LastName;
+            updatedPlayer.Number = player.Number;
+            updatedPlayer.Team = player.Team;
         
+            return Ok();
+        }
+
+        [HttpDelete ("{id}")]
+        public IActionResult Delete(int id)
+        {
+            var deletedPlayer = _players.FirstOrDefault(u => u.PlayerID == id);
+            if (deletedPlayer == null) { return BadRequest();}
+            _players.Remove(deletedPlayer);
+            return Ok();
+        }
     }
 }
