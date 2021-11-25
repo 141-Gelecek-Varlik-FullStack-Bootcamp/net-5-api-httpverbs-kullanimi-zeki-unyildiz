@@ -55,5 +55,17 @@ namespace WebApi.Controllers
             return player;
         }
 
+        [HttpPost]
+        public IActionResult Post([FromBody]Player player)
+        {
+            if(_players.SingleOrDefault(x => x.Team == player.Team) != null)
+            {
+                return BadRequest();
+            }
+            _players.Add(player);
+            return Ok();
+        }
+
+        
     }
 }
